@@ -1,0 +1,12 @@
+#!/usr/bin/env php
+<?php
+use HylianShield\KeyGenerator\NumericalSequenceKey;
+
+/** @var \HylianShield\KeyGenerator\KeyEncoderInterface $encoder */
+$encoder = require __DIR__ . '/bootstrap.php';
+
+echo $encoder->encode(
+    new NumericalSequenceKey(
+        ...array_slice($argv, 1)
+    )
+);

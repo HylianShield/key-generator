@@ -1,0 +1,6 @@
+#!/usr/bin/env php
+<?php
+/** @var \HylianShield\KeyGenerator\KeyGeneratorInterface $generator */
+$generator = require __DIR__ . '/bootstrap.php';
+
+echo $generator->generateKey(...array_slice($argv, 1));

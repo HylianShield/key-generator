@@ -1,0 +1,13 @@
+#!/usr/bin/env php
+<?php
+use HylianShield\KeyGenerator\Key;
+
+/** @var \HylianShield\KeyGenerator\KeyDecoderInterface $decoder */
+$decoder = require __DIR__ . '/bootstrap.php';
+
+echo implode(
+    ' ',
+    $decoder
+        ->decode(new Key(@$argv[1] ?: ''))
+        ->getNumericalSequence()
+);
