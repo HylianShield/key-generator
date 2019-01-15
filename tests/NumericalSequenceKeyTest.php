@@ -7,11 +7,12 @@
 namespace HylianShield\KeyGenerator\Tests;
 
 use HylianShield\KeyGenerator\NumericalSequenceKey;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @coversDefaultClass \HylianShield\KeyGenerator\NumericalSequenceKey
  */
-class NumericalSequenceKeyTest extends \PHPUnit_Framework_TestCase
+class NumericalSequenceKeyTest extends TestCase
 {
     /**
      * @return NumericalSequenceKey
@@ -19,7 +20,11 @@ class NumericalSequenceKeyTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructor(): NumericalSequenceKey
     {
-        return new NumericalSequenceKey(1, 2, 3, 4);
+        $key = new NumericalSequenceKey(1, 2, 3, 4);
+
+        $this->assertInstanceOf(NumericalSequenceKey::class, $key);
+
+        return $key;
     }
 
     /**
@@ -27,11 +32,14 @@ class NumericalSequenceKeyTest extends \PHPUnit_Framework_TestCase
      *
      * @param NumericalSequenceKey $key
      *
-     * @return int[]
+     * @return void
      * @covers ::getNumericalSequence
      */
-    public function testGetNumericalSequence(NumericalSequenceKey $key): array
+    public function testGetNumericalSequence(NumericalSequenceKey $key)
     {
-        return $key->getNumericalSequence();
+        $sequences = $key->getNumericalSequence();
+
+        $this->assertCount(4, $sequences);
+        $this->assertSame([1, 2, 3, 4], $sequences);
     }
 }

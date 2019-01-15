@@ -7,12 +7,14 @@
 namespace HylianShield\KeyGenerator\Tests;
 
 use HylianShield\KeyGenerator\Key;
+use HylianShield\KeyGenerator\NumericalSequenceKey;
 use HylianShield\KeyGenerator\NumericalSequenceKeyInterface;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @coversDefaultClass \HylianShield\KeyGenerator\Key
  */
-class KeyTest extends \PHPUnit_Framework_TestCase
+class KeyTest extends TestCase
 {
     /**
      * @return Key
@@ -20,10 +22,14 @@ class KeyTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructor(): Key
     {
-        return new Key(
+        $key = new Key(
             'foo',
-            $this->createMock(NumericalSequenceKeyInterface::class)
+            new NumericalSequenceKey(1, 2, 3, 4)
         );
+
+        $this->assertInstanceOf(Key::class, $key);
+
+        return $key;
     }
 
     /**
@@ -31,12 +37,12 @@ class KeyTest extends \PHPUnit_Framework_TestCase
      *
      * @param Key $key
      *
-     * @return string
+     * @return void
      * @covers ::__toString
      */
-    public function testToString(Key $key): string
+    public function testToString(Key $key)
     {
-        return $key->__toString();
+        $this->assertSame('foo', (string) $key);
     }
 
     /**
@@ -44,11 +50,11 @@ class KeyTest extends \PHPUnit_Framework_TestCase
      *
      * @param Key $key
      *
-     * @return int[]
+     * @return void
      * @covers ::getNumericalSequence
      */
-    public function testGetNumericalSequence(Key $key): array
+    public function testGetNumericalSequence(Key $key)
     {
-        return $key->getNumericalSequence();
+        $this->assertSame([1, 2, 3, 4], $key->getNumericalSequence());
     }
 }
